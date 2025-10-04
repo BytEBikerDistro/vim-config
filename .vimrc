@@ -107,7 +107,6 @@ Plug 'arcticicestudio/nord-vim'
 Plug 'preservim/nerdtree'
 " Status bar
 Plug 'vim-airline/vim-airline'
-Plug 'vim-airline/vim-airline-themes'
 " Commenting
 Plug 'tpope/vim-commentary'
 " Auto-pairs
@@ -171,24 +170,4 @@ nnoremap <leader><Right> :call CycleTheme(1)<CR>
 nnoremap <leader><Left>  :call CycleTheme(-1)<CR>
 call SetTheme(g:current_theme_index)
 
-" ========================
-" === OMNIFUNC COMPLETION ===
-" ========================
-function! CheckBackspace() abort
-  let col = col('.') - 1
-  return !col || getline('.')[col - 1]  =~# '\s'
-endfunction
 
-inoremap <silent><expr> <TAB> pumvisible() ? "\<C-n>" : CheckBackspace() ? "\<Tab>" : "\<C-x>\<C-o>"
-inoremap <expr> <S-TAB> pumvisible() ? "\<C-p>" : "\<C-h>"
-inoremap <silent><expr> <C-Space> pumvisible() ? "\<C-n>" : "\<C-x>\<C-o>"
-
-function! ShowDocumentation()
-  try
-    execute 'h ' . expand('<cword>')
-  catch
-    echo "No documentation found"
-  endtry
-endfunction
-
-nnoremap <silent> K :call ShowDocumentation()<CR>
