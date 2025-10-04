@@ -41,6 +41,9 @@ nnoremap <leader>c :nohlsearch<CR>
 " Toggle commenting
 nnoremap <leader>/ :Commentary<CR>
 
+" Toggle NERDTree
+nnoremap <leader>n :NERDTreeToggle<CR>
+
 " Buffer management
 nnoremap <leader>bn :enew<CR>        " Open new empty buffer
 nnoremap <leader>bl :bnext<CR>       " Switch to next buffer
@@ -88,6 +91,8 @@ if empty(glob('~/.vim/autoload/plug.vim'))
 endif
 
 call plug#begin('~/.vim/plugged')
+" File explorer
+Plug 'preservim/nerdtree'
 " Status bar
 Plug 'vim-airline/vim-airline'
 " Commenting
@@ -105,24 +110,4 @@ let g:airline#extensions#tabline#buffer_nr_show = 1
 let g:airline#extensions#tabline#fnamemod = ':t'
 let g:airline#extensions#tabline#formatter = 'unique_tail'
 
-" ========================
-" === OMNIFUNC COMPLETION ===
-" ========================
-function! CheckBackspace() abort
-  let col = col('.') - 1
-  return !col || getline('.')[col - 1]  =~# '\s'
-endfunction
 
-inoremap <silent><expr> <TAB> pumvisible() ? "\<C-n>" : CheckBackspace() ? "\<Tab>" : "\<C-x>\<C-o>"
-inoremap <expr> <S-TAB> pumvisible() ? "\<C-p>" : "\<C-h>"
-inoremap <silent><expr> <C-Space> pumvisible() ? "\<C-n>" : "\<C-x>\<C-o>"
-
-function! ShowDocumentation()
-  try
-    execute 'h ' . expand('<cword>')
-  catch
-    echo "No documentation found"
-  endtry
-endfunction
-
-nnoremap <silent> K :call ShowDocumentation()<CR>
